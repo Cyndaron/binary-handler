@@ -26,6 +26,10 @@ final class BinaryReader extends BinaryHandler
     public function readBytes(int $numBytes): string
     {
         assert($numBytes >= 0);
+        if ($numBytes === 0)
+        {
+            return '';
+        }
         $ret = @fread($this->fp, $numBytes);
         if ($ret === false)
         {
