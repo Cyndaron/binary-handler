@@ -8,7 +8,6 @@ The project was created out of a desire to have a solution that was a bit simple
 Binary Reader](https://github.com/mdurrant/php-binary-reader), and which supported writing binary 
 files. Some of the differences:
 
-- This project only supports reading little endian.
 - This project only works on whole bytes. You will have to do any bitmasking yourself.
 - This project allows _writing_ binary files, in addition to reading them.
 - This project allows creating the reader and writer from a filename, in addition to a string or

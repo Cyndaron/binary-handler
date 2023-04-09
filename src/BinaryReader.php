@@ -87,4 +87,25 @@ final class BinaryReader extends BinaryHandler
         assert(is_array($unpacked));
         return $unpacked[1];
     }
+
+    public function readUint16BE(): int
+    {
+        $unpacked = unpack('n', $this->readBytes(2));
+        assert(is_array($unpacked));
+        return $unpacked[1];
+    }
+
+    public function readUint32BE(): int
+    {
+        $unpacked =  unpack('N', ($this->readBytes(4)));
+        assert(is_array($unpacked));
+        return $unpacked[1];
+    }
+
+    public function readUint64BE(): int
+    {
+        $unpacked =  unpack('J', ($this->readBytes(8)));
+        assert(is_array($unpacked));
+        return $unpacked[1];
+    }
 }
