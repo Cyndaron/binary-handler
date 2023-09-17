@@ -70,17 +70,17 @@ final class BinaryWriter extends BinaryHandler
         return $this->writeBytes(pack('q', $value));
     }
 
-    public function writeUint16BE(int $value)
+    public function writeUint16BE(int $value): int
     {
         return $this->writeBytes(pack('n', $value));
     }
 
-    public function writeUint32BE(int $value)
+    public function writeUint32BE(int $value): int
     {
         return $this->writeBytes(pack('N', $value));
     }
 
-    public function writeUint64BE(int $value)
+    public function writeUint64BE(int $value): int
     {
         return $this->writeBytes(pack('J', $value));
     }
