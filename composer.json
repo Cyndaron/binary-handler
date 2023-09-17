@@ -1,7 +1,7 @@
 {
   "name": "cyndaron/binary-handler",
   "description": "Read and write binary files easily",
-  "type": "project",
+  "type": "library",
   "license": "MIT",
   "minimum-stability": "stable",
   "prefer-stable": true,
