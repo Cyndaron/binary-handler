@@ -1,32 +1,32 @@
 <?php
 declare(strict_types=1);
 
-namespace Cyndaron\BinaryHandler;
+namespace Cyndaron\BinaryHandler\Shared\Traits;
 
 use RuntimeException;
+use function assert;
+use function fclose;
+use function fopen;
 use function fseek;
 use function fstat;
 use function ftell;
+use function fwrite;
 use function is_array;
 use function is_resource;
 use function rewind;
 use const SEEK_CUR;
 use const SEEK_SET;
-use function fclose;
-use function fopen;
-use function assert;
-use function fwrite;
 
-abstract class BinaryHandler
+trait BinaryHandlerTrait
 {
     /** @var resource */
-    protected $fp;
-    protected bool $closeOnDestruction;
+    private $fp;
+    private bool $closeOnDestruction;
 
     /**
      * @param resource $fp
      */
-    final public function __construct($fp, bool $closeOnDestruction = false)
+    public function __construct($fp, bool $closeOnDestruction = false)
     {
         if (!is_resource($fp))
         {
@@ -36,7 +36,7 @@ abstract class BinaryHandler
         $this->closeOnDestruction = $closeOnDestruction;
     }
 
-    final public function __destruct()
+    public function __destruct()
     {
         if ($this->closeOnDestruction)
         {
@@ -44,43 +44,41 @@ abstract class BinaryHandler
         }
     }
 
-    final public function rewind(): void
+    public function rewind(): void
     {
         rewind($this->fp);
     }
 
-    final public function seek(int $bytes): void
+    public function seek(int $bytes): void
     {
         fseek($this->fp, $bytes, SEEK_CUR);
     }
 
-    final public function moveTo(int $position): void
+    public function moveTo(int $position): void
     {
         fseek($this->fp, $position, SEEK_SET);
     }
 
-    final public function getSize(): int
+    public function getSize(): int
     {
         $stats = fstat($this->fp);
         assert(is_array($stats));
         return (int)($stats['size']);
     }
 
-    final public function getPosition(): int
+    public function getPosition(): int
     {
         $pos = ftell($this->fp);
         assert($pos !== false);
         return $pos;
     }
 
-    final public static function fromString(string $input): static
+    public static function fromString(string $input): self
     {
         $fp = fopen('php://memory', 'rwb+');
         assert($fp !== false);
         fwrite($fp, $input);
         rewind($fp);
-        return new static($fp, true);
+        return new self($fp, true);
     }
-
-    abstract public static function fromFile(string $filename): static;
 }

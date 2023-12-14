@@ -9,7 +9,7 @@ use function fwrite;
 
 trait WriterBaseTrait
 {
-    public static function fromFile(string $filename): static
+    public static function fromFile(string $filename): self
     {
         $fp = fopen($filename, 'wb');
         if ($fp === false)
