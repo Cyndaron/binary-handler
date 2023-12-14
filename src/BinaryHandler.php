@@ -21,7 +21,7 @@ abstract class BinaryHandler
 {
     /** @var resource */
     protected $fp;
-    protected bool $closeOnDescruction;
+    protected bool $closeOnDestruction;
 
     /**
      * @param resource $fp
@@ -33,12 +33,12 @@ abstract class BinaryHandler
             throw new RuntimeException('$fp must be a resource!');
         }
         $this->fp = $fp;
-        $this->closeOnDescruction = $closeOnDestruction;
+        $this->closeOnDestruction = $closeOnDestruction;
     }
 
     final public function __destruct()
     {
-        if ($this->closeOnDescruction)
+        if ($this->closeOnDestruction)
         {
             fclose($this->fp);
         }
